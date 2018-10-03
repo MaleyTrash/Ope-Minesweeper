@@ -23,6 +23,10 @@ namespace Minesweeper
         public MainWindow()
         {
             InitializeComponent();
+
+            Game h = new Game(MainGrid);
+
+            h.Start(10, 10);
         }
     }
 }
