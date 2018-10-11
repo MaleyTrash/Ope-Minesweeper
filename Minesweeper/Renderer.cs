@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace Minesweeper
 {
@@ -24,9 +25,8 @@ namespace Minesweeper
                 _grid.ColumnDefinitions.Add(new ColumnDefinition());
                 for(int y = 0; y < height; y++)
                 {
-                    _grid.RowDefinitions.Add(new RowDefinition());
 
-                    Button btn = new Button();
+                    MineButton btn = new MineButton(x, y);
                     btn.Click += callback;
 
                     Grid.SetColumn(btn, x);
@@ -37,6 +37,11 @@ namespace Minesweeper
                     _buttons[x, y] = btn;   
                 }
             }
+
+            for(int y = 0; y < height; y++)
+            {
+                _grid.RowDefinitions.Add(new RowDefinition());
+            }
         }
 
         private void Clear()
@@ -46,13 +51,24 @@ namespace Minesweeper
             _grid.RowDefinitions.Clear();
         }
 
-        public void ChangeToText(int x, int y, TileType type, string text = "")
+        public void DisplayTile(int x, int y, int num)
         {
             Button target = _buttons[x, y];
 
-            _grid.Children.Remove(target);
-
-            // Do something
+            switch(num)
+            {
+                case -1:
+                    target.Content = 'X';
+                    target.Background = Brushes.Red;
+                    break;
+                case 0:
+                    target.Background = Brushes.White;
+                    break;
+                default:
+                    target.Content = num.ToString();
+                    target.Background = Brushes.White;
+                    break;
+            }
         }
     }
 }

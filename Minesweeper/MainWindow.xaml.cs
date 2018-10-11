@@ -26,7 +26,7 @@ namespace Minesweeper
 
             Game h = new Game(MainGrid);
 
-            h.Start(10, 10);
+            h.Start(10, 10, 30);
         }
     }
 }
