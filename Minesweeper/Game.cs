@@ -69,7 +69,20 @@ namespace Minesweeper
 
         private void ChangeEmpty(int x, int y)
         {
-            CheckAround(x, y, (hitX, hitY) =>
+            int first = field[x, y];
+            if(first >= 0)
+            {
+                _render.DisplayTile(x, y, first);
+                field[x, y] = -2;
+            }
+
+            // Cancel if first is a number
+            if(first > 0)
+            {
+                return;
+            }
+
+            CheckNeighbours(x, y, (hitX, hitY) =>
             {
                 int target = field[hitX, hitY];
 
@@ -124,14 +137,38 @@ namespace Minesweeper
                     int targetX = x + i;
                     int targetY = y + z;
 
-
-
-                    if (targetX < 0 || targetX >= field.GetLength(0)) continue;
-                    if (targetY < 0 || targetY >= field.GetLength(1)) continue;
+                    if (!IsInBounds(targetX, targetY)) continue;
 
                     onHit(targetX, targetY);
                 }
             }
+        }
+
+        private void CheckNeighbours(int x, int y, Func<int, int, int> onHit)
+        {
+            int[][] targets = new int[4][];
+
+            targets[0] = new int[] { x, y - 1 };
+            targets[1] = new int[] { x - 1, y };
+            targets[2] = new int[] { x + 1, y };
+            targets[3] = new int[] { x, y + 1 };
+
+            foreach(int[] item in targets)
+            {
+                int tarX = item[0];
+                int tarY = item[1];
+
+                if (!IsInBounds(tarX, tarY)) continue;
+
+                onHit(tarX, tarY);
+            }
+        }
+
+        private bool IsInBounds(int x, int y)
+        {
+            if (x < 0 || x >= field.GetLength(0)) return false;
+            if (y < 0 || y >= field.GetLength(1)) return false;
+            return true;
         }
 
         private void GenerateMines(int x, int y)
@@ -140,7 +177,7 @@ namespace Minesweeper
 
             int xLength = field.GetLength(0);
             int yLength = field.GetLength(1);
-            int maxMines = xLength + yLength - 1;
+            int maxMines = (xLength * yLength) - 1;
 
             int placed = 0;
 

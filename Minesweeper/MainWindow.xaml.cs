@@ -23,10 +23,33 @@ namespace Minesweeper
         public MainWindow()
         {
             InitializeComponent();
+        }
 
+        private void Normalier_Click(object sender, RoutedEventArgs e)
+        {
+            NewGame(5, 5, 3);
+        }
+
+        private void Normal_Click(object sender, RoutedEventArgs e)
+        {
+            NewGame(10, 10, 10);
+        }
+
+        private void Normaler_Click(object sender, RoutedEventArgs e)
+        {
+            NewGame(15, 15, 15);
+        }
+
+        private void Normalest_Click(object sender, RoutedEventArgs e)
+        {
+            NewGame(30, 30, 200);
+        }
+
+        private void NewGame(int width, int height, int mines)
+        {
             Game h = new Game(MainGrid);
 
-            h.Start(10, 10, 30);
+            h.Start(width, height, mines);
         }
     }
 }

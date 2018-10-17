@@ -5,14 +5,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Minesweeper"
         mc:Ignorable="d"
-        Title="Minesweeper" Height="450" Width="800">
+        Title="Minesweeper" Height="709.275" Width="850">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"></RowDefinition>
-            <RowDefinition Height="5*"></RowDefinition>
+            <RowDefinition Height="14*"></RowDefinition>
         </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="10*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Content="0s" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" Grid.Column="4"/>
+            <Button Grid.Column="0" Content="Normalier" Click="Normalier_Click"/>
+            <Button Grid.Column="1" Content="Normal" Click="Normal_Click"/>
+            <Button Grid.Column="2" Content="Normaler" Click="Normaler_Click"/>
+            <Button Grid.Column="3" Content="Normalest" Click="Normalest_Click"/>
+        </Grid>
         <Grid x:Name="MainGrid" Grid.Row="1">
-            
+
         </Grid>
     </Grid>
 </Window>

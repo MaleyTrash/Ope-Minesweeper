@@ -28,6 +28,7 @@ namespace Minesweeper
 
                     MineButton btn = new MineButton(x, y);
                     btn.Click += callback;
+                    btn.MouseRightButtonUp += Flag;
 
                     Grid.SetColumn(btn, x);
                     Grid.SetRow(btn, y);
@@ -44,6 +45,12 @@ namespace Minesweeper
             }
         }
 
+        private void Flag(object obj, RoutedEventArgs args)
+        {
+            MineButton h = obj as MineButton;
+            DisplayTile(h.x, h.y, -3);
+        }
+
         private void Clear()
         {
             _grid.Children.Clear();
@@ -57,11 +64,15 @@ namespace Minesweeper
 
             switch(num)
             {
+                case -3:
+                    target.Content = 'F';
+                    break;
                 case -1:
                     target.Content = 'X';
                     target.Background = Brushes.Red;
                     break;
                 case 0:
+                    target.Content = "";
                     target.Background = Brushes.White;
                     break;
                 default:
